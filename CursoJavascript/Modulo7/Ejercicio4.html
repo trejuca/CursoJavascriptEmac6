@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
+
 </head>
 <body>
 	<div id="root">
@@ -13,28 +13,40 @@
 		<p>Parrafo 4</p>
 	</div>
 	<script type="text/javascript">
-	function* recorrerDom(palabraDeBusqueda, nodo) {
-		
-		const nodosPorVisitar = [nodo]
-		
-		while(nodosPorVisitar.length > 0) {
-			const nodoActual = nodosPorVisitar.shift()
-			//console.log(nodoActual)
-			if (nodoActual.textContent.includes(palabraDeBusqueda)) {
-				yield {tipo:"Aviso", nodo: nodoActual}
-			} else {
-				yield {tipo:"Nodo", nodo: nodoActual}
-				nodosPorVisitar.push(...nodoActual.children)
-			}
+
+	    const documento = document;
+	    const nodoRaiz = documento.getElementById('root');
+	    const palabraClave = "Parrafo";
+	    const iterador = recorrerArbolConAvisoSinRecursion(nodoRaiz, palabraClave);
+
+	    function procesarIterador() {
+	      const resultado = iterador.next();
+
+	      if (!resultado.done) {
+	        if (resultado.value.tipo === 'Aviso') {
+	          console.log(
+	        		  `Se encontró la palabra "${palabraClave}" en el siguiente nodo:`, resultado.value.nodo);
+
+	          procesarIterador();
+	        }
+	      }
+	    }
+
+		function* recorrerArbolConAvisoSinRecursion(nodoRaiz, palabraClave) {
+		      const nodosPorVisitar = [nodoRaiz];
+
+		      while (nodosPorVisitar.length > 0) {
+		        const nodoActual = nodosPorVisitar.shift();
+
+		        if (nodoActual.textContent.includes(palabraClave)) {
+		          yield { tipo: 'Aviso', nodo: nodoActual };
+		        }
+
+		        nodosPorVisitar.push(...nodoActual.children);
+		      }
 		}
-	}
 
-	const nodoRaiz = document.documentElement
-	const palabraBusqueda = "Parrafo"
-
-	//console.log(recorrerDom(palabraBusqueda, nodoRaiz))
-	for (const resultado of recorrerDom(palabraBusqueda, nodoRaiz)) {
-		console.log(resultado.tipo)
-	}</script>
+	    procesarIterador();
+	</script>
 </body>
 </html>
