@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+</head>
+<body>
+	<div id="root">
+		<p>Parrafo 1</p>
+		<div>
+			<p>Parrafo 2</p>
+			<p>Parrafo 3</p>
+		</div>
+		<p>Parrafo 4</p>
+	</div>
+	<script type="text/javascript">
+	function* recorrerDom(palabraDeBusqueda, nodo) {
+		
+		const nodosPorVisitar = [nodo]
+		
+		while(nodosPorVisitar.length > 0) {
+			const nodoActual = nodosPorVisitar.shift()
+			//console.log(nodoActual)
+			if (nodoActual.textContent.includes(palabraDeBusqueda)) {
+				yield {tipo:"Aviso", nodo: nodoActual}
+			} else {
+				yield {tipo:"Nodo", nodo: nodoActual}
+				nodosPorVisitar.push(...nodoActual.children)
+			}
+		}
+	}
+
+	const nodoRaiz = document.documentElement
+	const palabraBusqueda = "Parrafo"
+
+	//console.log(recorrerDom(palabraBusqueda, nodoRaiz))
+	for (const resultado of recorrerDom(palabraBusqueda, nodoRaiz)) {
+		console.log(resultado.tipo)
+	}</script>
+</body>
+</html>
