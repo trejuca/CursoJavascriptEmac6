@@ -2,6 +2,14 @@
 const tablaComponent = {
 	tabla: null,
 	nombreColumnas: {},
+	destruirTabla: function(id) {
+		
+		let tablaTemp = document.getElementById(id)
+		console.log(tablaTemp)
+		if (tablaTemp) {
+			tablaTemp.remove()
+		}
+	},
 	construirTabla: function({id, columnas}) {
 		
 		let tablaTemp = document.getElementById(id)
@@ -49,14 +57,16 @@ const tablaComponent = {
 	actualizarTabla: function(usuario) {
 		
 		const datosTabla = this.construirFila()
-		console.log(datosTabla.celdas)
+
 		Object.keys(datosTabla.celdas).forEach(function(elemento, index) {
 			datosTabla.celdas[elemento].innerHTML = (usuario[elemento] !== undefined)
 				? usuario[elemento]
 				: ""
 		})
-		datosTabla.celdas['acciones'].appendChild(function() {
-			
+		
+
+		datosTabla.celdas['acciones'].appendChild(function(destruirTabla, id) {
+
 			// Definir elementos agregar
 			const linkEliminar = document.createElement("a")
 			const linkActualizar = document.createElement("a")
@@ -69,6 +79,8 @@ const tablaComponent = {
 				
 				if (localStorage.getItem(usuario['id']) !== null) {
 					localStorage.removeItem(usuario['id'])
+					destruirTabla(id)
+					leerRegistros()
 				}
 			})
 			
@@ -84,7 +96,7 @@ const tablaComponent = {
 			div.appendChild(linkActualizar)	
 
 			return div
-		}())
+		}(this.destruirTabla, this.tabla.id))
 	}
 }
 

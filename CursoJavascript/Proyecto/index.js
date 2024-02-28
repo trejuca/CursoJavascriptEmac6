@@ -51,21 +51,7 @@ const cargarUsuario = (usuario) => {
  */
 const guardarUsuario = () => {
 	
-//	const usuario = {}
-//	const nombreColumnas = {}
 	
-//	document.querySelectorAll(".usuario-form").forEach(nodo => {
-//		nombreColumnas[nodo.id] = nodo.getAttribute("data-nombre-columna")
-//		usuario[nodo.id] = nodo.value
-//		nodo.value = ""
-//	})
-//	
-//	tablaComponent.construirTabla(
-//		{
-//			id: `${TABLES_PREFIX}${API_USUARIO}`,
-//			columnas: nombreColumnas
-//		}
-//	)
 	const datosDeInicializacion = inicializarAplicacion()
 	tablaComponent.actualizarTabla(datosDeInicializacion.usuario)
 
@@ -80,7 +66,6 @@ const leerRegistros = () => {
 	
 	for (let index = 0; index < localStorage.length; index++) {
 		const usuario = JSON.parse(localStorage.getItem(localStorage.key(index)))
-		console.log(usuario)
 		tablaComponent.actualizarTabla(usuario)
 	}
 }
