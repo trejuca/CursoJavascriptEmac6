@@ -49,7 +49,7 @@ const tablaComponent = {
 	actualizarTabla: function(usuario) {
 		
 		const datosTabla = this.construirFila()
-		
+		console.log(datosTabla.celdas)
 		Object.keys(datosTabla.celdas).forEach(function(elemento, index) {
 			datosTabla.celdas[elemento].innerHTML = (usuario[elemento] !== undefined)
 				? usuario[elemento]

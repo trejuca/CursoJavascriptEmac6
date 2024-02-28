@@ -20,7 +20,6 @@ const consultarUsuario = async (id) => {
 		
 		cargarUsuario(usuarioJson)	
 		
-		
 	} catch (error) {
 		alert(error.message)
 	}
@@ -52,6 +51,42 @@ const cargarUsuario = (usuario) => {
  */
 const guardarUsuario = () => {
 	
+//	const usuario = {}
+//	const nombreColumnas = {}
+	
+//	document.querySelectorAll(".usuario-form").forEach(nodo => {
+//		nombreColumnas[nodo.id] = nodo.getAttribute("data-nombre-columna")
+//		usuario[nodo.id] = nodo.value
+//		nodo.value = ""
+//	})
+//	
+//	tablaComponent.construirTabla(
+//		{
+//			id: `${TABLES_PREFIX}${API_USUARIO}`,
+//			columnas: nombreColumnas
+//		}
+//	)
+	const datosDeInicializacion = inicializarAplicacion()
+	tablaComponent.actualizarTabla(datosDeInicializacion.usuario)
+
+	localStorage.setItem(
+		datosDeInicializacion.usuario.id, 
+		JSON.stringify(datosDeInicializacion.usuario))
+}
+
+const leerRegistros = () => {
+	
+	inicializarAplicacion()
+	
+	for (let index = 0; index < localStorage.length; index++) {
+		const usuario = JSON.parse(localStorage.getItem(localStorage.key(index)))
+		console.log(usuario)
+		tablaComponent.actualizarTabla(usuario)
+	}
+}
+
+const inicializarAplicacion = () => {
+	
 	const usuario = {}
 	const nombreColumnas = {}
 	
@@ -67,11 +102,11 @@ const guardarUsuario = () => {
 			columnas: nombreColumnas
 		}
 	)
-	tablaComponent.actualizarTabla(usuario)
-
-	localStorage.setItem(
-		usuario.id, JSON.stringify(usuario))
 	
+	return {
+		usuario,
+		nombreColumnas
+	}
 }
 
 
