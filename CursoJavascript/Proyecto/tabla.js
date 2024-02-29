@@ -18,6 +18,7 @@ const tablaComponent = {
 			this.tabla = tablaTemp
 			this.tabla = document.createElement("table")
 			this.tabla.id = id
+			this.tabla.setAttribute("class","table  table-hover")
 			
 			const encabezado = this.tabla.createTHead().insertRow()
 			this.nombreColumnas = columnas
@@ -29,7 +30,8 @@ const tablaComponent = {
 			encabezado.insertCell(
 				Object.keys(columnas).length).innerHTML = "<b>Acciones</b>"
 				
-			document.body.appendChild(this.tabla)
+			document.getElementById("ubicacion").appendChild(this.tabla)
+			//document.body
 		}
 		
 	},
@@ -77,6 +79,8 @@ const tablaComponent = {
 			linkEliminar.addEventListener("click", function(e) {
 				e.preventDefault()
 				
+				// Las lineas de la 81  a la 85 seria conveniente
+				// ejecutarlas en una funcion de tipo callback
 				if (localStorage.getItem(usuario['id']) !== null) {
 					localStorage.removeItem(usuario['id'])
 					destruirTabla(id)

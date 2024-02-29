@@ -51,7 +51,6 @@ const cargarUsuario = (usuario) => {
  */
 const guardarUsuario = () => {
 	
-	
 	const datosDeInicializacion = inicializarAplicacion()
 	tablaComponent.actualizarTabla(datosDeInicializacion.usuario)
 
