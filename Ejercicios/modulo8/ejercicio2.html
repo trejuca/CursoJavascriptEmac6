@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="root">
+		<p>Parrafo 1</p>
+		<p>Parrafo 2</p>
+		<p>Parrafo 3</p>
+		<div>
+			<p>Parrafo 4</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		const nodoRaiz = document.getElementById("root")
+		const palabraClave = "Parrafo"
+		const iterador = recorrerArbol(palabraClave, nodoRaiz)
+		
+		function procesarIterador() {
+			let resultado = iterador.next()
+			console.log(resultado)
+			
+			while(!resultado.done) {
+				if (resultado.value.aviso == "INFO") {
+					console.log(
+						"Se encontro la palabra clave en: " + resultado.value.nodo)
+					resultado = iterador.next()
+				}
+			}
+		}
+		
+		function* recorrerArbol(palabraClave, nodoRaiz) {
+			const nodosTotales = [nodoRaiz]
+			//console.log(nodosTotales.length)
+			
+			while (nodosTotales.length > 0) {
+				const nodoActual = nodosTotales.shift()
+				
+				if (nodoActual.textContent.includes(palabraClave)) {
+					yield {aviso: "INFO", nodo: nodoActual}
+				}
+				console.log(nodoActual, nodoActual.textContent)
+				nodosTotales.push(...nodoActual.children)
+			}
+			
+		}
+		
+		procesarIterador()
+	</script>
+</body>
+
+</html>
