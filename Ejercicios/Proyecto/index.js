@@ -40,16 +40,18 @@ const cargarUsuario = (usuario) => {
 
 const guardarUsuario = () => {
 	
-	const usuario = construirUsuario()
+	const {usuario} = construirUsuario()
 		
 	localStorage.setItem(usuario.id, JSON.stringify(usuario))
-	tablaComponente.actualizarTabla(usuario)
+	//tablaComponente.actualizarTabla(usuario)
+	tablaComponente.destruirTabla(tablaComponente.tabla)
+	inicializarAplicacion()
 }
 
 const inicializarAplicacion = () => {
 	
-	construirUsuario()
-	
+	const {nombresColumnas} = construirUsuario()
+	console.log("inicia")
 	tablaComponente.construirTabla("tabla-resultados", nombresColumnas)
 	
 	// Verificar si hay registros existentes en el localstorage
@@ -73,9 +75,10 @@ const construirUsuario = () => {
 		//nombresColumnas[nodo.value] = nodo.dataset.nombreColumna
 		//nombresColumnas[nodo.value] = nodo.dataset['nombreColumna']
 		nombresColumnas[nodo.id] = nodo.getAttribute("data-nombre-columna")
+		nodo.value = ""
 	})
 	
-	return usuario
+	return {usuario, nombresColumnas}
 }
 
 
