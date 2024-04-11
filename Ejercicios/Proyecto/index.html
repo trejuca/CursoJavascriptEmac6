@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Alta de usuarios</title>
+	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="tabla.js"></script>
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", inicializarAplicacion)
+	</script>
+</head>
+<body>
+	<div id="busqueda-form">
+		<table border="1">
+			<tr>
+				<td>Id de busqueda</td>
+				<td>
+					<input type="text" name="id" id="busqueda"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button 
+						id="buscar-button" 
+						onclick="leerUsuarioId()">
+						Buscar
+					</button>
+				</td>
+			</tr>
+		</table>
+	</div><br/>
+	<div id="user-form">
+		<table border="1">
+			<tr>
+				<td>id</td>
+				<td>
+					<input 
+						type="text" 
+						name="id" 
+						id="id" 
+						class="user-form"
+						data-nombre-columna="ID"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Nombre:</td>
+				<td>
+					<input 
+						type="text" 
+						name="name" 
+						id="name" 
+						class="user-form"
+						data-nombre-columna="Nombre"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Nombre de usuario</td>
+				<td>
+					<input 
+						type="text" 
+						name="username" 
+						id="username" 
+						class="user-form"
+						data-nombre-columna="Nombre de usuario"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Correo electronico</td>
+				<td>
+					<input 
+						type="text" 
+						name="email" 
+						id="email" 
+						class="user-form"
+						data-nombre-columna="Correo electrónico"/>
+					<input 
+						type="hidden" 
+						name="acciones" 
+						id="acciones" 
+						class="user-form"
+						data-nombre-columna="Acciones"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button id="guardar-button" onclick="guardarUsuario()">
+						Guardar
+					</button>
+				</td>
+			</tr>
+		</table>
+	</div><br/>
+	<div id="div-resultados">
+	
+	</div>
+</body>
+
+
+
+
+
+
+
+
+
+
+</html>
